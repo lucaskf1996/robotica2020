@@ -11,8 +11,8 @@ import matplotlib.cm as cm
 
 # Parameters to use when opening the webcam.
 cap = cv2.VideoCapture(0)
-cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
-cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
+cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
+cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
 
 lower = 0
 upper = 1
@@ -177,24 +177,24 @@ while(True):
     try:
         cv2.line(bordas_color,magenta,ciano,(0,255,0),5)
         if magenta [0] > ciano[0] and magenta[1] > ciano[1]:
-            dist = ((magenta[0]-ciano[0])**2+(magenta[1]-ciano[1])**2)**(1/2) # magenta > ciano em x e y
-            papel = str(777 * 14 / dist) + "cm"
-            angulo = str(180-abs(np.arctan((magenta[1]-ciano[1])/(magenta[0]-ciano[0]))*180/np.pi)) + " graus" #n ta ok
+            dist = ((magenta[0]-ciano[0])**2+(magenta[1]-ciano[1])**2)**(1/2)
+            papel = (777 * 14 / dist)
+            angulo = (180-abs(np.arctan((magenta[1]-ciano[1])/(magenta[0]-ciano[0]))*180/np.pi))
             
         elif magenta[0] > ciano[0] and ciano[1] > magenta[1]:
             dist = ((magenta[0]-ciano[0])**2+(ciano[1]-magenta[1])**2)**(1/2)
-            papel = str(777 * 14 / dist) + "cm"
-            angulo = str(abs(np.arctan((ciano[1]-magenta[1])/(magenta[0]-ciano[0]))*180/np.pi)) + " graus" #ta ok
+            papel = (777 * 14 / dist)
+            angulo = (abs(np.arctan((ciano[1]-magenta[1])/(magenta[0]-ciano[0]))*180/np.pi))
 
         elif ciano[0] > magenta[0] and ciano[1] > magenta[1]:
             dist = ((ciano[0]-magenta[0])**2+(ciano[1]-magenta[1])**2)**(1/2)
-            papel = str(777 * 14 / dist) + "cm"
-            angulo = str(180-abs(np.arctan((ciano[1]-magenta[1])/(ciano[0]-magenta[0]))*180/np.pi)) + " graus" #ta ok
+            papel = (777 * 14 / dist)
+            angulo = (180-abs(np.arctan((ciano[1]-magenta[1])/(ciano[0]-magenta[0]))*180/np.pi))
 
         elif ciano[0] > magenta[0] and magenta[1] > ciano[1]:
             dist = ((ciano[0]-magenta[0])**2+(magenta[1]-ciano[1])**2)**(1/2)
-            papel = str(777 * 14 / dist) + "cm"
-            angulo = str(abs(np.arctan((magenta[1]-ciano[1])/(ciano[0]-magenta[0]))*180/np.pi)) + " graus" #n ta ok
+            papel = (777 * 14 / dist)
+            angulo = (abs(np.arctan((magenta[1]-ciano[1])/(ciano[0]-magenta[0]))*180/np.pi))
             
         elif ciano[1] == magenta[1]:
             angulo = "pi/2"
@@ -202,8 +202,8 @@ while(True):
         else:
             angulo = "0"   
 
-        cv2.putText(bordas_color,papel,(0,130), font, 2,(255,255,255),2,cv2.LINE_AA)
-        cv2.putText(bordas_color,angulo,(0,50), font, 2,(255,255,255),2,cv2.LINE_AA)
+        cv2.putText(bordas_color,"%.2f cm" % papel,(0,130), font, 2,(255,255,255),2,cv2.LINE_AA)
+        cv2.putText(bordas_color,"%.2f graus" % angulo,(0,50), font, 2,(255,255,255),2,cv2.LINE_AA)
     except:
         print("cade circulo")
 
